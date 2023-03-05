@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Makrokoll</string>
+    <string name="kcal">%1$d kcal</string>
+    <string name="PFC_info">%1$dP | %2$dF | %3$dC</string>
+
+    <!-- add_recipe -->
+    <string name="name_of_recipe">Namn på recept</string>
+    <string name="nr_of_portions">Antal portioner</string>
+    <string name="name_of_ingredient">Namn på ingrediens</string>
+    <string name="weight_volume">Vikt/volym</string>
+    <string name="protein_source">Proteinkälla</string>
+    <string name="ingredients">Ingredienser</string>
+    <string-array name="numbers">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+
+        <!--<item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>-->
+    </string-array>
+
+    <string-array name="measurements">
+        <item>gram</item>
+        <item>kg</item>
+
+        <item>krm</item>
+        <item>tsk</item>
+        <item>msk</item>
+
+        <item>ml</item>
+        <item>cl</item>
+        <item>dl</item>
+        <item>L</item>
+
+        <item>st</item>
+        <item>nypa</item>
+
+    </string-array>
+
+
+    <!-- Filter strings -->
+    <string name="fisk">Fisk</string>
+    <string name="flask">Fläsk</string>
+    <string name="fagel">Fågel</string>
+    <string name="mjolk">Mjölk</string>
+    <string name="not">Nöt</string>
+    <string name="veg">Vegetariskt</string>
+    <string name="vilt">Vilt</string>
+    <string name="agg">Ägg</string>
+    <string name="ovrigt">Övrigt</string>
+
+</resources>
