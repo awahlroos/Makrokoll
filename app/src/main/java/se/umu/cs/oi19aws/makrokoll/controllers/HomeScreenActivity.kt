@@ -1,7 +1,8 @@
-package se.umu.cs.oi19aws.makrokoll
+package se.umu.cs.oi19aws.makrokoll.controllers
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import se.umu.cs.oi19aws.makrokoll.R
 
 class HomeScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

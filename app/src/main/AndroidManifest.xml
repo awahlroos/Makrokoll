@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Makrokoll"
         tools:targetApi="33">
         <activity
-            android:name=".AddRecipeActivity"
+            android:name=".controllers.AddRecipeActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeScreenActivity"
+            android:name=".controllers.HomeScreenActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -39,7 +39,7 @@
             </intent-filter> -->
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".controllers.MainActivity"
             android:exported="true">
 
             <meta-data

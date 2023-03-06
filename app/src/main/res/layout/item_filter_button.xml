@@ -15,7 +15,7 @@
         android:textAllCaps="false"
         android:textColor="@color/dark_blue"
         app:cornerRadius="8dp"
-        app:icon="@drawable/ic_vilt"
+        app:icon="@drawable/ic_game"
         app:iconTint="@color/dark_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

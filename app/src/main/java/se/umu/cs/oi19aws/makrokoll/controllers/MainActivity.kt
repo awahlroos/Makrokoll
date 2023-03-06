@@ -1,8 +1,9 @@
-package se.umu.cs.oi19aws.makrokoll
+package se.umu.cs.oi19aws.makrokoll.controllers
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import se.umu.cs.oi19aws.makrokoll.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

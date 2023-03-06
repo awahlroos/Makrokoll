@@ -10,6 +10,11 @@
     <string name="weight_volume">Vikt/volym</string>
     <string name="protein_source">Proteinkälla</string>
     <string name="ingredients">Ingredienser</string>
+    <string name="image">Bild</string>
+    <string name="add_ingredient">Lägg till ingrediens</string>
+    <string name="add_image">Lägg till bild</string>
+    <string name="publish">Publicera</string>
+
     <string-array name="numbers">
         <item>1</item>
         <item>2</item>
@@ -50,14 +55,15 @@
 
 
     <!-- Filter strings -->
-    <string name="fisk">Fisk</string>
-    <string name="flask">Fläsk</string>
-    <string name="fagel">Fågel</string>
-    <string name="mjolk">Mjölk</string>
-    <string name="not">Nöt</string>
-    <string name="veg">Vegetariskt</string>
-    <string name="vilt">Vilt</string>
-    <string name="agg">Ägg</string>
-    <string name="ovrigt">Övrigt</string>
+    <string name="fish">Fisk</string>
+    <string name="pork">Fläsk</string>
+    <string name="bird">Fågel</string>
+    <string name="milk">Mjölk</string>
+    <string name="beef">Nöt</string>
+    <string name="veggie">Vegetariskt</string>
+    <string name="game">Vilt</string>
+    <string name="egg">Ägg</string>
+    <string name="others">Övrigt</string>
+
 
 </resources>
