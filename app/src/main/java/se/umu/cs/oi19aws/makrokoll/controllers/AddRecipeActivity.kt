@@ -86,8 +86,6 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
             recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(this)
 
-            binding.
-
             binding.weightVolumeET.text.clear()
             binding.ingredientNameET.text.clear()
         }
