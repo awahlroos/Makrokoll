@@ -2,13 +2,10 @@ package se.umu.cs.oi19aws.makrokoll.controllers
 
 import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -67,35 +64,6 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
 
         //Sätt en lyssnare för knappen
         binding.addImageButton.setOnClickListener { takePicture() }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.actionbar, menu)
-        val search = menu.findItem(R.id.search)
-        val searchView = search.actionView as SearchView
-
-        //Set listener to handle searches from the searchView in the actionbar
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                //TODO: Implementera med databasen
-                //model.search(query)
-                //setListData()
-                search.collapseActionView()
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                return false
-            }
-        })
-        return true
     }
 
 
