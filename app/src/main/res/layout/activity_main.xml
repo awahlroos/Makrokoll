@@ -16,22 +16,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@drawable/button_state"
-        android:letterSpacing="0"
-        android:text="Fågel"
-        android:textAllCaps="false"
-        android:textColor="@drawable/button_state_reverse"
-        app:cornerRadius="8dp"
-        app:icon="@drawable/ic_bird"
-        app:iconSize="18dp"
-        app:iconTint="@drawable/button_state_reverse"
-        app:strokeColor="@drawable/button_state_reverse"
-        app:strokeWidth="1dp"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="185dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
