@@ -27,19 +27,15 @@
                 android:text="@string/name_of_recipe"
                 android:textColor="@color/black"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/textInputEditText"
+                app:layout_constraintBottom_toTopOf="@+id/recipe_name_ET"
                 app:layout_constraintStart_toStartOf="parent" />
 
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputEditText"
+            <EditText
+                android:id="@+id/recipe_name_ET"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:backgroundTint="@color/black"
-                android:hint="@string/name_of_recipe"
-                android:textColorHint="#00000000"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:layout_editor_absoluteX="0dp" />
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -97,9 +93,9 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginBottom="8dp"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout2"
@@ -115,11 +111,10 @@
                     android:ems="10"
                     android:hint="@string/name_of_ingredient"
                     android:inputType="text"
-                    android:textSize="14sp"
                     android:maxLength="30"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/measurement_unit_spinner"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/measurement_unit_spinner"
                     app:layout_constraintTop_toTopOf="@+id/measurement_unit_spinner" />
 
@@ -140,8 +135,8 @@
                     android:ems="10"
                     android:hint="@string/weight_volume"
                     android:inputType="numberDecimal"
-                    android:textSize="14sp"
                     android:maxLength="5"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/measurement_unit_spinner"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/measurement_unit_spinner" />
@@ -362,37 +357,69 @@
             tools:layout_editor_absoluteX="16dp">
 
 
-            <TextView
-                android:id="@+id/image_TV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/image"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/add_image_button"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <Button
-                android:id="@+id/add_image_button"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:backgroundTint="@color/white"
-                android:letterSpacing="0"
-                android:text="@string/add_image"
-                android:textAllCaps="false"
-                android:textColor="@color/dark_blue"
-                app:cornerRadius="8dp"
-                app:icon="@drawable/ic_baseline_photo_camera_24"
-                app:iconGravity="textStart"
-                app:iconTint="@color/dark_blue"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:strokeColor="@color/dark_blue"
-                app:strokeWidth="1dp" />
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/image_TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/image"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout6"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/style_outlined_container"
+                    app:layout_constraintBottom_toTopOf="@+id/add_image_button"
+                    app:layout_constraintStart_toStartOf="parent">
+
+
+                    <ImageView
+                        android:id="@+id/posted_image_IV"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/style_rounded_corners_6dp"
+                        android:scaleType="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_outline_image_24" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/add_image_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:backgroundTint="@color/white"
+                    android:letterSpacing="0"
+                    android:text="@string/add_image"
+                    android:textAllCaps="false"
+                    android:textColor="@color/dark_blue"
+                    app:cornerRadius="8dp"
+                    app:icon="@drawable/ic_baseline_photo_camera_24"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/dark_blue"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:strokeColor="@color/dark_blue"
+                    app:strokeWidth="1dp" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
