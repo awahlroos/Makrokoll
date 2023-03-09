@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav"
+    app:startDestination="@id/discover">
+    <fragment
+        android:id="@+id/discover"
+        android:name="se.umu.cs.oi19aws.makrokoll.discover"
+        android:label="Upptäck"
+        tools:layout="@layout/fragment_discover" />
+    <fragment
+        android:id="@+id/saved"
+        android:name="se.umu.cs.oi19aws.makrokoll.saved"
+        android:label="Sparat"
+        tools:layout="@layout/fragment_saved" />
+    <fragment
+        android:id="@+id/profile"
+        android:name="se.umu.cs.oi19aws.makrokoll.profile"
+        android:label="Profil"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
