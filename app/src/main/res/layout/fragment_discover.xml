@@ -1,36 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".discover">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:context=".controllers.DiscoverFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginHorizontal="16dp">
-
-            <!--TODO: Content goes here-->
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="1200dp"
-                android:background="@color/purple_200"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="30dp">
+
+                <!--TODO: Content goes here-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/popular_recipes_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/filter_container">
+
+                    <TextView
+                        android:id="@+id/recipe_name_TV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/discover_recipes"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/recipe_name_TV">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/filter_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteY="250dp">
+
+
+                    <TextView
+                        android:id="@+id/filter_TV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/filter"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/filter_TV">
+
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fillViewport="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <Button
+                                    android:id="@+id/filterButtonFisk"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:backgroundTint="@drawable/button_state"
+                                    android:letterSpacing="0"
+                                    android:text="@string/fish"
+                                    android:textAllCaps="false"
+                                    android:textColor="@drawable/button_state_reverse"
+                                    app:cornerRadius="8dp"
+                                    app:icon="@drawable/ic_fish"
+                                    app:iconSize="18dp"
+                                    app:iconTint="@drawable/button_state_reverse"
+                                    app:strokeColor="@drawable/button_state_reverse"
+                                    app:strokeWidth="1dp" />
+
+                                <Button
+                                    android:id="@+id/filterButtonFlask"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:backgroundTint="@drawable/button_state"
+                                    android:letterSpacing="0"
+                                    android:text="@string/pork"
+                                    android:textAllCaps="false"
+                                    android:textColor="@drawable/button_state_reverse"
+                                    app:cornerRadius="8dp"
+                                    app:icon="@drawable/ic_pork"
+                                    app:iconSize="18dp"
+                                    app:iconTint="@drawable/button_state_reverse"
+                                    app:strokeColor="@drawable/button_state_reverse"
+                                    app:strokeWidth="1dp" />
+
+                                <Button
+                                    android:id="@+id/filterButtonFagel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:backgroundTint="@drawable/button_state"
+                                    android:letterSpacing="0"
+                                    android:text="@string/bird"
+                                    android:textAllCaps="false"
+                                    android:textColor="@drawable/button_state_reverse"
+                                    app:cornerRadius="8dp"
+                                    app:icon="@drawable/ic_bird"
+                                    app:iconSize="18dp"
+                                    app:iconTint="@drawable/button_state_reverse"
+                                    app:strokeColor="@drawable/button_state_reverse"
+                                    app:strokeWidth="1dp" />
+
+                                <Button
+                                    android:id="@+id/filterButtonMjolk"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:backgroundTint="@drawable/button_state"
+                                    android:letterSpacing="0"
+                                    android:text="@string/milk"
+                                    android:textAllCaps="false"
+                                    android:textColor="@drawable/button_state_reverse"
+                                    app:cornerRadius="8dp"
+                                    app:icon="@drawable/ic_milk"
+                                    app:iconSize="18dp"
+                                    app:iconTint="@drawable/button_state_reverse"
+                                    app:strokeColor="@drawable/button_state_reverse"
+                                    app:strokeWidth="1dp" />
+
+                                <Button
+                                    android:id="@+id/filterButtonNot"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:backgroundTint="@drawable/button_state"
+                                    android:letterSpacing="0"
+                                    android:text="@string/beef"
+                                    android:textAllCaps="false"
+                                    android:textColor="@drawable/button_state_reverse"
+                                    app:cornerRadius="8dp"
+                                    app:icon="@drawable/ic_beef"
+                                    app:iconSize="18dp"
+                                    app:iconTint="@drawable/button_state_reverse"
+                                    app:strokeColor="@drawable/button_state_reverse"
+                                    app:strokeWidth="1dp" />
+
+                                <Button
+                                    android:id="@+id/filterButtonVeg"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:backgroundTint="@drawable/button_state"
+                                    android:letterSpacing="0"
+                                    android:text="@string/veggie"
+                                    android:textAllCaps="false"
+                                    android:textColor="@drawable/button_state_reverse"
+                                    app:cornerRadius="8dp"
+                                    app:icon="@drawable/ic_veg"
+                                    app:iconSize="18dp"
+                                    app:iconTint="@drawable/button_state_reverse"
+                                    app:strokeColor="@drawable/button_state_reverse"
+                                    app:strokeWidth="1dp" />
+
+                                <Button
+                                    android:id="@+id/filterButtonVilt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:backgroundTint="@drawable/button_state"
+                                    android:letterSpacing="0"
+                                    android:text="@string/game"
+                                    android:textAllCaps="false"
+                                    android:textColor="@drawable/button_state_reverse"
+                                    app:cornerRadius="8dp"
+                                    app:icon="@drawable/ic_game"
+                                    app:iconSize="18dp"
+                                    app:iconTint="@drawable/button_state_reverse"
+                                    app:strokeColor="@drawable/button_state_reverse"
+                                    app:strokeWidth="1dp" />
+
+                                <Button
+                                    android:id="@+id/filterButtonAgg"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:backgroundTint="@drawable/button_state"
+                                    android:letterSpacing="0"
+                                    android:text="@string/egg"
+                                    android:textAllCaps="false"
+                                    android:textColor="@drawable/button_state_reverse"
+                                    app:cornerRadius="8dp"
+                                    app:icon="@drawable/ic_egg"
+                                    app:iconSize="18dp"
+                                    app:iconTint="@drawable/button_state_reverse"
+                                    app:strokeColor="@drawable/button_state_reverse"
+                                    app:strokeWidth="1dp" />
+
+                                <Button
+                                    android:id="@+id/filterButtonOvrigt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:backgroundTint="@drawable/button_state"
+                                    android:letterSpacing="0"
+                                    android:text="@string/others"
+                                    android:textAllCaps="false"
+                                    android:textColor="@drawable/button_state_reverse"
+                                    app:cornerRadius="8dp"
+                                    app:icon="@drawable/ic_others"
+                                    app:iconSize="18dp"
+                                    app:iconTint="@drawable/button_state_reverse"
+                                    app:strokeColor="@drawable/button_state_reverse"
+                                    app:strokeWidth="1dp" />
+
+                            </LinearLayout>
+
+
+                        </HorizontalScrollView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
-
+</layout>

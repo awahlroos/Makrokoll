@@ -81,7 +81,7 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
     private fun initMeasurementSpinner(){
         measurementSpinner = binding.measurementUnitSpinner
 
-        var adapter:ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(this,
+        val adapter:ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(this,
             R.array.measurements, android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -89,7 +89,7 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         measurementSpinner.onItemSelectedListener = this
     }
 
-    //TODO: Kanske ta bort dessa funktioner
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         if (parent == binding.nrOfServingsSpinner) {
             nrOfServings = parent.getItemAtPosition(position).toString()
@@ -163,11 +163,16 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
 
             if(binding.recipeNameET.text.toString() != "") {
                 if(activeFiltersList.isNotEmpty()) {
-                    //Hämta nrOfServings, lagrad i variabeln redan
-                    val nameOfRecipe = binding.recipeNameET.text.toString()
-                } else Toast.makeText(this, "Proteinkälla saknas", Toast.LENGTH_LONG).show()
+                    if(binding.stepByStepET.text.toString() != "") {
+                        //Hämta nrOfServings också, lagrad i variabeln redan
+                        val nameOfRecipe = binding.recipeNameET.text.toString()
+                    } else {
+                        Toast.makeText(this, "\"Tillagning - steg för steg\" saknas", Toast.LENGTH_LONG).show()
+                        binding.stepByStepET.requestFocus()
+                    }
+                } else Toast.makeText(this, "\"Proteinkälla\" saknas", Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "Namn på recept saknas", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "\"Namn på recept\" saknas", Toast.LENGTH_LONG).show()
                 binding.recipeNameET.requestFocus()
             }
         }

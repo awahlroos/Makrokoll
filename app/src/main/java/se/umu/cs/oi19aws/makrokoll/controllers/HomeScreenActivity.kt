@@ -24,9 +24,10 @@ class HomeScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_screen)
-
         //binding = ActivityHomeScreenBinding.inflate(layoutInflater)
         //binding.bottomNavigationView
+
+
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val navController = supportFragmentManager.findFragmentById(R.id.discover_fragment_activity)?.findNavController()
@@ -73,6 +74,4 @@ class HomeScreenActivity : AppCompatActivity() {
         })
         return true
     }
-
-
 }
