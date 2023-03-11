@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fabFragment"
-        android:name="se.umu.cs.oi19aws.makrokoll.FabFragment"
+        android:name="se.umu.cs.oi19aws.makrokoll.controllers.FabFragment"
         android:label="fragment_fab"
         tools:layout="@layout/fragment_fab" >
         <action

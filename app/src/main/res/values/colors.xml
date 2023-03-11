@@ -9,5 +9,6 @@
     <color name="transparent">#00000000</color>
     <color name="lighter_black">#232323</color>
     <color name="white">#FAF9F6</color>
+    <color name="warm_white">#F5F3F0</color>
     <color name="light_gray">#CFCFCF</color>
 </resources>

@@ -2,6 +2,8 @@
     <string name="app_name">Makrokoll</string>
     <string name="kcal">%1$d kcal</string>
     <string name="PFC_info">%1$dP | %2$dF | %3$dC</string>
+    <string name="filter">Filtrera</string>
+    <string name="discover_recipes">Upptäck nytt</string>
 
     <!-- actionbar-->
     <string name="search">Sök</string>
@@ -15,6 +17,8 @@
     <string name="ingredients">Ingredienser</string>
     <string name="image">Bild</string>
     <string name="add_ingredient">Lägg till ingrediens</string>
+    <string name="description">Beskrivning (frivilligt)</string>
+    <string name="step_by_step">Tillagning - steg för steg</string>
     <string name="add_image">Lägg till bild</string>
     <string name="publish">Publicera</string>
 
@@ -59,5 +63,8 @@
     <string name="egg">Ägg</string>
     <string name="others">Övrigt</string>
 
+    <!-- Detailed recipe view -->
+    <string name="nr_of_servings">%1$d portioner</string>
+    <string name="how_to_do">Gör så här</string>
 
 </resources>

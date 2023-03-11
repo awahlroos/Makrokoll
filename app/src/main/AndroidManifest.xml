@@ -15,6 +15,13 @@
         android:theme="@style/Theme.Makrokoll"
         tools:targetApi="33">
         <activity
+            android:name=".DetailedRecipe"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".controllers.AddRecipeActivity"
             android:exported="true">
             <meta-data
@@ -38,8 +45,8 @@
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
