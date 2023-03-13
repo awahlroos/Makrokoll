@@ -9,28 +9,34 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import se.umu.cs.oi19aws.makrokoll.R
 
-class IngredientsRecyclerViewAdapter(var context: Context,
-                                     var ingredientList:ArrayList<IngredientsModel>) :
-    RecyclerView.Adapter<IngredientsRecyclerViewAdapter.Companion.MyViewHolder>() {
+class IngredientsRecyclerViewAdapter(
+    var context: Context,
+    var ingredientList: ArrayList<IngredientsModel>,
+    private val deletable: Boolean
+) : RecyclerView.Adapter<IngredientsRecyclerViewAdapter.Companion.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val inflater:LayoutInflater = LayoutInflater.from(context)
-        val view:View = inflater.inflate(R.layout.item_ingredient, parent, false)
+        val inflater: LayoutInflater = LayoutInflater.from(context)
+        var view: View = inflater.inflate(R.layout.item_ingredient_no_delete, parent, false)
+        if (deletable) {
+            view = inflater.inflate(R.layout.item_ingredient, parent, false)
+        }
 
         return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
-        val removeButton = holder.itemView
-            .findViewById<AppCompatImageButton>(R.id.removeIngredientButton)
-        removeButton.setOnClickListener {
-            ingredientList.removeAt(position)
-            //This is used instead of "notifyItemRemoved(position)" to get the updated interval
-            notifyDataSetChanged()
+        if(deletable) {
+            val removeButton =
+                holder.itemView.findViewById<AppCompatImageButton>(R.id.removeIngredientButton)
+            removeButton.setOnClickListener {
+                ingredientList.removeAt(position)
+                //This is used instead of "notifyItemRemoved(position)" to get the updated interval
+                notifyDataSetChanged()
+            }
         }
-        val text = ingredientList[position]
-            .getWeightVolume() + " " + ingredientList[position].getMeasurementUnit()
+        val text =
+            ingredientList[position].getWeightVolume() + " " + ingredientList[position].getMeasurementUnit()
         holder.weightVolAndUnit.text = text
         holder.ingredient.text = ingredientList[position].getIngredientName()
     }
@@ -39,10 +45,10 @@ class IngredientsRecyclerViewAdapter(var context: Context,
         return ingredientList.size
     }
 
-    companion object{
+    companion object {
         class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            var weightVolAndUnit:TextView = itemView.findViewById(R.id.measurement)
-            var ingredient:TextView = itemView.findViewById(R.id.ingredient)
+            var weightVolAndUnit: TextView = itemView.findViewById(R.id.measurement)
+            var ingredient: TextView = itemView.findViewById(R.id.ingredient)
         }
     }
 }

@@ -1,6 +1,7 @@
 package se.umu.cs.oi19aws.makrokoll.models
 
 class RecipeCardModel(
+    private var id: Int,
     private var name: String,
     private var kcal: Int,
     private var protein: Int,
@@ -9,6 +10,10 @@ class RecipeCardModel(
     private var icon: String,
     private var image: String
 ) {
+    fun getId(): Int {
+        return id
+    }
+
     fun getName(): String {
         return name
     }

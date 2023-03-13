@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailedRecipe">
+    tools:context=".controllers.DetailedRecipeActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/recipe_image"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:scaleType="centerCrop"
@@ -80,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-black"
-                        android:text="@string/kcal"
+                        android:text="@string/nr_kcal"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -116,6 +116,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
+                        android:id="@+id/recipe_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
@@ -149,6 +150,7 @@
                     app:layout_constraintTop_toBottomOf="@id/recipe_name_container">
 
                     <TextView
+                        android:id="@+id/recipe_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Lorem ipsum ..."
@@ -186,6 +188,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/servings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/nr_of_servings"
@@ -195,6 +198,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -222,6 +226,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/step_by_step"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"

@@ -1,43 +1,54 @@
 package se.umu.cs.oi19aws.makrokoll.controllers
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import se.umu.cs.oi19aws.makrokoll.RecyclerViewInterface
-import se.umu.cs.oi19aws.makrokoll.models.SpacesItemDecorator
+import se.umu.cs.oi19aws.makrokoll.data.RecipeViewModel
 import se.umu.cs.oi19aws.makrokoll.databinding.FragmentDiscoverBinding
-import se.umu.cs.oi19aws.makrokoll.models.RecipeCardRecyclerViewAdapter
 import se.umu.cs.oi19aws.makrokoll.models.RecipeCardModel
+import se.umu.cs.oi19aws.makrokoll.models.RecipeCardRecyclerViewAdapter
+import se.umu.cs.oi19aws.makrokoll.models.SpacesItemDecorator
 
 
 class DiscoverFragment : Fragment(), RecyclerViewInterface {
 
-    private lateinit var binding:FragmentDiscoverBinding
+    private lateinit var binding: FragmentDiscoverBinding
     private var recipeModel = ArrayList<RecipeCardModel>()
-    private lateinit var recyclerView:RecyclerView
+    private lateinit var viewModelRecipe: RecipeViewModel
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
-        //TODO: REMOVE THIS
-        for(i in 1..20){
-            updateRecipeModel()
-        }
+        //val allRecipes = viewModelRecipe.getAllRecipe
+
+
+        //val recipe: Recipe = viewModelRecipe.getRecipe(1)
+
+        //updateRecipeModel("Curry", 12, 12, 12, 12, "beef", "img_currygryta")
     }
+
+    private var isInitialized = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        binding = FragmentDiscoverBinding.inflate(inflater, container, false)
-        setUpRecyclerView()
+        if (!isInitialized) {
+            viewModelRecipe = ViewModelProvider(this)[RecipeViewModel::class.java]
+            binding = FragmentDiscoverBinding.inflate(inflater, container, false)
+            setUpRecyclerView()
+            isInitialized = true
+        }
         return binding.root
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_discover, container, false)
@@ -47,24 +58,53 @@ class DiscoverFragment : Fragment(), RecyclerViewInterface {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun setUpRecyclerView(){
+    private fun setUpRecyclerView() {
         recyclerView = binding.recyclerView
         val adapter = this.activity?.let { RecipeCardRecyclerViewAdapter(it, recipeModel, this) }
         recyclerView.adapter = adapter
         //recyclerView.layoutManager = FlexboxLayoutManager(this.activity)
-        recyclerView.layoutManager = GridLayoutManager(this.activity,2)
+        recyclerView.layoutManager = GridLayoutManager(this.activity, 2)
         recyclerView.addItemDecoration(SpacesItemDecorator(16, 450))
 
-
+        viewModelRecipe.getAllRecipe.observe(viewLifecycleOwner) { recipes ->
+            recipeModel.clear()
+            for (recipe in recipes) {
+                var icon: String = if (recipe.activeFilters.size > 1) {
+                    "multiple"
+                } else {
+                    recipe.activeFilters[0]
+                }
+                updateRecipeModel(
+                    recipe.id,
+                    recipe.name,
+                    recipe.kcal,
+                    recipe.protein,
+                    recipe.fat,
+                    recipe.carbs,
+                    icon,
+                    recipe.image
+                )
+            }
+        }
     }
 
     override fun onItemClick(position: Int) {
-        Log.d("TAG", "Clicked: $position")
+        val i = Intent(activity, DetailedRecipeActivity::class.java)
+        i.putExtra("id", recipeModel[position].getId())
+        startActivity(i)
     }
 
-    //TODO: REMOVE THIS and call it when user adds new recipe. Kom ihåg att notifiera lyssnare
-    private fun updateRecipeModel() {
-        recipeModel.add(RecipeCardModel("Currygryta med kyckling och ångkokt broccoli",409, 32,18,59,"bird" , "img_currygryta"))
-
+    private fun updateRecipeModel(
+        id: Int,
+        name: String,
+        kcal: Int,
+        protein: Int,
+        fat: Int,
+        carbs: Int,
+        icon: String,
+        image: String
+    ) {
+        recipeModel.add(RecipeCardModel(id, name, kcal, protein, fat, carbs, icon, image))
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 }

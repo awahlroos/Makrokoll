@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Makrokoll</string>
-    <string name="kcal">%1$d kcal</string>
+    <string name="nr_kcal">%1$d kcal</string>
     <string name="PFC_info">%1$dP | %2$dF | %3$dC</string>
     <string name="filter">Filtrera</string>
-    <string name="discover_recipes">Upptäck nytt</string>
+    <string name="discover_recipes">Alla recept</string>
 
     <!-- actionbar-->
     <string name="search">Sök</string>
@@ -13,10 +13,19 @@
     <string name="nr_of_portions">Antal portioner</string>
     <string name="name_of_ingredient">Namn på ingrediens</string>
     <string name="weight_volume">Vikt/volym</string>
-    <string name="protein_source">Proteinkälla</string>
+    <string name="protein_source">Primär proteinkälla</string>
     <string name="ingredients">Ingredienser</string>
     <string name="image">Bild</string>
     <string name="add_ingredient">Lägg till ingrediens</string>
+    <string name="nutrients_per_serving">Näringsvärde per portion</string>
+    <string name="kcal">Kalorier</string>
+    <string name="protein">Protein</string>
+    <string name="fat">Fett</string>
+    <string name="carbs">Kolhydrater</string>
+    <string name="nr_of_kcal">Antal kcal</string>
+    <string name="nr_of_protein">Protein (g)</string>
+    <string name="nr_of_fat">Fett (g)</string>
+    <string name="nr_of_carbs">Kolhydrater (g)</string>
     <string name="description">Beskrivning (frivilligt)</string>
     <string name="step_by_step">Tillagning - steg för steg</string>
     <string name="add_image">Lägg till bild</string>
@@ -66,5 +75,15 @@
     <!-- Detailed recipe view -->
     <string name="nr_of_servings">%1$d portioner</string>
     <string name="how_to_do">Gör så här</string>
+    <string name="title_activity_detailed_recipe">DetailedRecipeActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
 
 </resources>

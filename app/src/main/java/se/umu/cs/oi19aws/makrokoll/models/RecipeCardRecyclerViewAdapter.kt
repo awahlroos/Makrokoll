@@ -1,16 +1,17 @@
 package se.umu.cs.oi19aws.makrokoll.models
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import se.umu.cs.oi19aws.makrokoll.R
 import se.umu.cs.oi19aws.makrokoll.RecyclerViewInterface
+import java.io.File
 
 class RecipeCardRecyclerViewAdapter(var context: Context,
                                     var recipesList:ArrayList<RecipeCardModel>,
@@ -37,7 +38,7 @@ class RecipeCardRecyclerViewAdapter(var context: Context,
 
 
         holder.recipe_name.text = recipesList[position].getName()
-        holder.kcal_text.text = context.getString(R.string.kcal, recipesList[position].getKCAL())
+        holder.kcal_text.text = context.getString(R.string.nr_kcal, recipesList[position].getKCAL())
         holder.pfc_text.text = context.getString(R.string.PFC_info,
             recipesList[position].getProtein(),
             recipesList[position].getFat(),
@@ -47,8 +48,10 @@ class RecipeCardRecyclerViewAdapter(var context: Context,
         val iconName = "ic_${recipesList[position].getIcon()}"
         holder.icon.setImageResource(context.resources.getIdentifier(iconName,"drawable","se.umu.cs.oi19aws.makrokoll"))
         val imageName = "${recipesList[position].getImage()}"
-        holder.image.setImageResource(context.resources.getIdentifier(imageName, "drawable", "se.umu.cs.oi19aws.makrokoll"))
-        Log.d("TAG", "recipeName: ${holder.recipe_name.text}")
+
+        holder.image.setImageBitmap(BitmapFactory.decodeFile(File(context.filesDir, imageName).absolutePath))
+        //holder.image.setImageResource(context.resources.getIdentifier(imageName, "drawable", "se.umu.cs.oi19aws.makrokoll"))
+        //Log.d("TAG", "recipeName: ${holder.recipe_name.text}")
         holder.setOnClickListener()
 
     }
