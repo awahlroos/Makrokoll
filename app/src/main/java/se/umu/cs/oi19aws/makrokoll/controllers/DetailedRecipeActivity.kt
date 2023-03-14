@@ -32,19 +32,19 @@ class DetailedRecipeActivity : AppCompatActivity() {
         val saveButton = binding.saveButton
 
         viewModelRecipe.recipeIsSaved(recipeId).observe(this) { isSaved ->
-            if(isSaved){
+            if(isSaved == true){
                 saveButton.isActivated = true
             }
         }
 
         saveButton.setOnClickListener {
-            val savedRecipe = Saved(1,recipeId)
+            val savedRecipe = Saved(0,recipeId)
             saveButton.isActivated = !saveButton.isActivated
             if(saveButton.isActivated){
                 viewModelRecipe.addSavedRecipe(savedRecipe)
                 Toast.makeText(this, "Recept sparat", Toast.LENGTH_SHORT).show()
             } else {
-                viewModelRecipe.deleteSavedRecipe(savedRecipe.id)
+                viewModelRecipe.deleteSavedRecipe(savedRecipe.recipe_id)
                 Toast.makeText(this, "Recept borttaget från sparade", Toast.LENGTH_SHORT).show()
             }
         }

@@ -26,14 +26,13 @@ class DiscoverFragment : Fragment(), RecyclerViewInterface {
     private var recipeModel = ArrayList<RecipeCardModel>()
     private lateinit var viewModelRecipe: RecipeViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var filterButtonList: ArrayList<Button>
-    private lateinit var filterStringList: ArrayList<String>
+    private var filterButtonList = ArrayList<Button>()
+    private var filterStringList = ArrayList<String>()
     private lateinit var mapButtonToString: Map<Button, String>
-    private lateinit var searchView:SearchView
+    private lateinit var mapStringToButton: Map<String, Button>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         //val allRecipes = viewModelRecipe.getAllRecipe
 
@@ -63,6 +62,20 @@ class DiscoverFragment : Fragment(), RecyclerViewInterface {
             setUpFilterList()
             isInitialized = true
         }
+
+        if(savedInstanceState != null){
+            filterStringList = savedInstanceState.getStringArrayList(FILTER_KEY)!!
+            for(item in filterStringList){
+                mapStringToButton[item]?.isActivated = true
+            }
+
+            if (filterStringList.isEmpty()) {
+                getAllRecipes()
+            } else {
+                updateRecyclerViewFilter()
+            }
+        }
+
         return binding.root
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_discover, container, false)
@@ -79,7 +92,7 @@ class DiscoverFragment : Fragment(), RecyclerViewInterface {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.actionbar, menu)
                 val search = menu.findItem(R.id.search)
-                searchView = search.actionView as SearchView
+                val searchView = search.actionView as SearchView
 
                 //Set listener to handle searches from the searchView in the actionbar
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -117,8 +130,9 @@ class DiscoverFragment : Fragment(), RecyclerViewInterface {
 
     private fun setUpFilterList() {
 
-        filterButtonList = ArrayList()
-        filterStringList = ArrayList()
+        //TODO: Korta ner denna
+
+
 
         val buttonFish = binding.filterButtonFisk
         val buttonPork = binding.filterButtonFlask
@@ -130,15 +144,15 @@ class DiscoverFragment : Fragment(), RecyclerViewInterface {
         val buttonEgg = binding.filterButtonAgg
         val buttonOthers = binding.filterButtonOvrigt
 
-        filterButtonList.add(binding.filterButtonFisk)
-        filterButtonList.add(binding.filterButtonFlask)
-        filterButtonList.add(binding.filterButtonFagel)
-        filterButtonList.add(binding.filterButtonMjolk)
-        filterButtonList.add(binding.filterButtonNot)
-        filterButtonList.add(binding.filterButtonVeg)
-        filterButtonList.add(binding.filterButtonVilt)
-        filterButtonList.add(binding.filterButtonAgg)
-        filterButtonList.add(binding.filterButtonOvrigt)
+        filterButtonList.add(buttonFish)
+        filterButtonList.add(buttonPork)
+        filterButtonList.add(buttonBird)
+        filterButtonList.add(buttonMilk)
+        filterButtonList.add(buttonBeef)
+        filterButtonList.add(buttonVeg)
+        filterButtonList.add(buttonGame)
+        filterButtonList.add(buttonEgg)
+        filterButtonList.add(buttonOthers)
 
         mapButtonToString = mapOf(
             buttonFish to "fish",
@@ -152,22 +166,30 @@ class DiscoverFragment : Fragment(), RecyclerViewInterface {
             buttonOthers to "others",
         )
 
+        mapStringToButton = mapOf(
+            "fish" to buttonFish,
+            "pork" to buttonPork,
+            "bird" to buttonBird,
+            "milk" to buttonMilk,
+            "beef" to buttonBeef,
+            "veg" to buttonVeg,
+            "game" to buttonGame,
+            "egg" to buttonEgg,
+            "others" to buttonOthers
+        )
+
         for (button in filterButtonList) {
             button.setOnClickListener {
-                //searchView.setQuery("", true)
                 button.isActivated = !button.isActivated
                 if (button.isActivated) {
-                    Log.d("TAG", "Activated ${mapButtonToString[button]!!}")
                     filterStringList.add(mapButtonToString[button]!!)
                 } else {
-                    Log.d("TAG", "Removed ${mapButtonToString[button]!!}")
                     filterStringList.remove(mapButtonToString[button]!!)
                 }
 
                 if (filterStringList.isEmpty()) {
                     getAllRecipes()
                 } else {
-                    Log.d("TAG", "Not empty: ${filterStringList}")
                     updateRecyclerViewFilter()
                 }
             }
@@ -300,5 +322,14 @@ class DiscoverFragment : Fragment(), RecyclerViewInterface {
             button.isActivated = false
             filterStringList.remove(mapButtonToString[button]!!)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putStringArrayList(FILTER_KEY, filterStringList)
+    }
+
+    companion object {
+        private const val FILTER_KEY = "DiscoverFragment.Filter"
     }
 }

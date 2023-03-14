@@ -44,7 +44,6 @@ class SavedFragment : Fragment(), RecyclerViewInterface {
         recyclerView = binding.recyclerView
         val adapter = this.activity?.let { RecipeCardRecyclerViewAdapter(it, recipeModel, this) }
         recyclerView.adapter = adapter
-        //recyclerView.layoutManager = FlexboxLayoutManager(this.activity)
         recyclerView.layoutManager = GridLayoutManager(this.activity, 2)
         recyclerView.addItemDecoration(SpacesItemDecorator(16, 450))
         getSavedRecipes()
@@ -52,6 +51,7 @@ class SavedFragment : Fragment(), RecyclerViewInterface {
 
     private fun getSavedRecipes() {
         viewModelRecipe.getSavedRecipes().observe(viewLifecycleOwner) { recipes ->
+            recipeModel.clear()
             for (recipe in recipes) {
                 val icon: String = if (recipe.activeFilters.size > 1) {
                     "multiple"

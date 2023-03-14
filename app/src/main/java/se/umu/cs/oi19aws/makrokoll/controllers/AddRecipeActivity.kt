@@ -1,10 +1,7 @@
 package se.umu.cs.oi19aws.makrokoll.controllers
 
-import android.content.Context
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,7 +17,6 @@ import se.umu.cs.oi19aws.makrokoll.databinding.ActivityAddRecipeBinding
 import se.umu.cs.oi19aws.makrokoll.models.IngredientsModel
 import se.umu.cs.oi19aws.makrokoll.models.IngredientsRecyclerViewAdapter
 import java.io.File
-import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,6 +32,7 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
     private lateinit var measurementUnit: String
     private var ingredientModel = ArrayList<IngredientsModel>()
     private lateinit var viewModelRecipe: RecipeViewModel
+    private var activeFiltersListBoolean = BooleanArray(9)
 
     private lateinit var file: File
     private lateinit var viewModelImage: ImageViewModel
@@ -55,29 +52,46 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         super.onCreate(savedInstanceState)
         viewModelImage = ViewModelProvider(this)[ImageViewModel::class.java]
         viewModelRecipe = ViewModelProvider(this)[RecipeViewModel::class.java]
-        //viewModelImage.setContext(applicationContext)
         supportActionBar?.title = "Publicera nytt recept"
 
         binding = ActivityAddRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        handleRestore(savedInstanceState)
 
         initNrOfServingsSpinner()
         initMeasurementSpinner()
         setAddIngredientListener()
         initFilterList()
         setPublishListener()
+        setUpImageHandler()
+    }
 
+    private fun handleRestore(savedInstanceState: Bundle?){
+        if (savedInstanceState != null) {
+            //Setup filters again
+            activeFiltersListBoolean = savedInstanceState.getBooleanArray(FILTER_KEY)!!
+
+            //Setup recyclerview again
+            ingredientModel = savedInstanceState.getParcelableArrayList(INGREDIENT_KEY)!!
+            recyclerView = binding.recyclerView
+            val adapter = IngredientsRecyclerViewAdapter(this, ingredientModel, true)
+            recyclerView.adapter = adapter
+            recyclerView.layoutManager = LinearLayoutManager(this)
+        }
+    }
+
+    private fun setUpImageHandler(){
         viewModelImage.bitmap.observe(this) {
             binding.postedImageIV.setImageBitmap(it)
         }
 
-        //Plats att spara bilden
         file = File(filesDir, imageName)
         if (file.exists() && viewModelImage.file == null) {
             viewModelImage.file = file
         }
 
-        //Sätt en lyssnare för knappen
         binding.addImageButton.setOnClickListener { takePicture() }
     }
 
@@ -146,6 +160,7 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
     }
 
     private fun initFilterList() {
+
         filterList.add(binding.filterButtonFish)
         filterList.add(binding.filterButtonPork)
         filterList.add(binding.filterButtonBird)
@@ -157,8 +172,10 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         filterList.add(binding.filterButtonOthers)
 
         for (btn in filterList) {
+            btn.isActivated = activeFiltersListBoolean[filterList.indexOf(btn)]
             btn.setOnClickListener {
-                //TODO: Spara undan tillstånd
+                activeFiltersListBoolean[filterList.indexOf(btn)] =
+                    !activeFiltersListBoolean[filterList.indexOf(btn)]
                 btn.isActivated = !btn.isActivated
             }
         }
@@ -177,7 +194,6 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
                     )
                 }
             }
-
 
             if (correctlyFilled()) {
                 postToDatabase()
@@ -222,7 +238,7 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
             return false
         }
 
-        if(viewModelImage.file == null){
+        if (viewModelImage.file == null) {
             showError("\"Bild\" saknas")
             return false
         }
@@ -309,6 +325,17 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val randomString = UUID.randomUUID().toString()
         return "img_$timeStamp-$randomString.jpg"
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(INGREDIENT_KEY, ingredientModel)
+        outState.putBooleanArray(FILTER_KEY, activeFiltersListBoolean)
+    }
+
+    companion object {
+        private const val INGREDIENT_KEY = "AddRecipeActivity.Ingredient"
+        private const val FILTER_KEY = "AddRecipeActivity.Filter"
     }
 
 }

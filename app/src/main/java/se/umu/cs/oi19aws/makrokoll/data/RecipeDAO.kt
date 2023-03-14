@@ -21,23 +21,6 @@ interface RecipeDAO {
     @Query("SELECT * FROM recipe_table WHERE name LIKE '%' || :query || '%'")
     fun searchRecipes(query: String): LiveData<List<Recipe>>
 
-    //@Query("SELECT * FROM recipe_table WHERE :filter IN activeFilters")
-    //fun searchRecipesFilter(filter:String) : LiveData<List<Recipe>>
-
-    //Saved recipes
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addSavedRecipe(saved: Saved)
-
-    @Query("SELECT * FROM recipe_table WHERE id IN (SELECT recipe_id FROM saved_recipes)")
-    fun getSavedRecipes(): LiveData<List<Recipe>>
-
-    @Query("SELECT EXISTS(SELECT 1 FROM saved_recipes WHERE id=:id)")
-    fun recipeIsSaved(id: Int): LiveData<Boolean>
-
-    @Query("DELETE FROM saved_recipes WHERE id=:id")
-    fun deleteSavedRecipes(id: Int)
-
-
     @Query("SELECT * FROM recipe_table WHERE activeFilters LIKE '%'||:filter1||'%'" +
             "OR activeFilters LIKE '%'||:filter2||'%'" +
             "OR activeFilters LIKE '%'||:filter3||'%'" +
@@ -56,4 +39,17 @@ interface RecipeDAO {
                             filter7:String,
                             filter8:String,
                             filter9:String): LiveData<List<Recipe>>
+
+    //Saved recipes
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun addSavedRecipe(saved: Saved)
+
+    @Query("SELECT * FROM recipe_table WHERE id IN (SELECT recipe_id FROM saved_recipes)")
+    fun getSavedRecipes(): LiveData<List<Recipe>>
+
+    @Query("SELECT EXISTS(SELECT 1 FROM saved_recipes WHERE recipe_id=:id)")
+    fun recipeIsSaved(id: Int): LiveData<Boolean>
+
+    @Query("DELETE FROM saved_recipes WHERE recipe_id=:id")
+    fun deleteSavedRecipes(id: Int)
 }
