@@ -22,3 +22,4 @@ data class Recipe(
     val stepByStep: String,
     val image: String
 )
+

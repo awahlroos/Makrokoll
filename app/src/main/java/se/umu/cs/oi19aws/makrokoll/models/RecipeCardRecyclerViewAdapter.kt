@@ -2,7 +2,6 @@ package se.umu.cs.oi19aws.makrokoll.models
 
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import se.umu.cs.oi19aws.makrokoll.R
-import se.umu.cs.oi19aws.makrokoll.RecyclerViewInterface
+import se.umu.cs.oi19aws.makrokoll.controllers.RecyclerViewInterface
 import java.io.File
 
 class RecipeCardRecyclerViewAdapter(var context: Context,
                                     var recipesList:ArrayList<RecipeCardModel>,
-                                    var recyclerViewInterface: RecyclerViewInterface) :
+                                    var recyclerViewInterface: RecyclerViewInterface
+) :
     RecyclerView.Adapter<RecipeCardRecyclerViewAdapter.Companion.MyViewHolder>() {
 
     //private lateinit var recyclerViewInterface:RecyclerViewInterface
@@ -37,9 +37,9 @@ class RecipeCardRecyclerViewAdapter(var context: Context,
 
 
 
-        holder.recipe_name.text = recipesList[position].getName()
-        holder.kcal_text.text = context.getString(R.string.nr_kcal, recipesList[position].getKCAL())
-        holder.pfc_text.text = context.getString(R.string.PFC_info,
+        holder.recipeName.text = recipesList[position].getName()
+        holder.kcalText.text = context.getString(R.string.nr_kcal, recipesList[position].getKCAL())
+        holder.pfcText.text = context.getString(R.string.PFC_info,
             recipesList[position].getProtein(),
             recipesList[position].getFat(),
             recipesList[position].getCarbs())
@@ -62,9 +62,9 @@ class RecipeCardRecyclerViewAdapter(var context: Context,
 
     companion object {
         class MyViewHolder(itemView: View, private val recyclerViewInterface: RecyclerViewInterface) : RecyclerView.ViewHolder(itemView) {
-            var recipe_name: TextView = itemView.findViewById(R.id.recipe_name)
-            var kcal_text: TextView = itemView.findViewById(R.id.kcal_text)
-            var pfc_text: TextView = itemView.findViewById(R.id.PFC_text)
+            var recipeName: TextView = itemView.findViewById(R.id.recipe_name)
+            var kcalText: TextView = itemView.findViewById(R.id.kcal_text)
+            var pfcText: TextView = itemView.findViewById(R.id.PFC_text)
             var icon: ImageView = itemView.findViewById(R.id.protein_icon)
             var image: ImageView = itemView.findViewById(R.id.recipe_image)
 

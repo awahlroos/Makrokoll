@@ -56,6 +56,7 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         viewModelImage = ViewModelProvider(this)[ImageViewModel::class.java]
         viewModelRecipe = ViewModelProvider(this)[RecipeViewModel::class.java]
         //viewModelImage.setContext(applicationContext)
+        supportActionBar?.title = "Publicera nytt recept"
 
         binding = ActivityAddRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -158,8 +159,6 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         for (btn in filterList) {
             btn.setOnClickListener {
                 //TODO: Spara undan tillstånd
-                //TODO: Fixa så bara ett alternativ kan vara aktivt??
-                //TODO: Alternativt: fixa ikon för flera val av protein
                 btn.isActivated = !btn.isActivated
             }
         }
@@ -172,13 +171,13 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         publishButton.setOnClickListener {
             for (btn in filterList) {
                 if (btn.isActivated) {
-                    Log.d("TAG", "File: ${viewModelImage.file.toString()}")
                     //Store only the filter phrase, ie. "Beef" or "Egg"
                     activeFiltersList.add(
                         resources.getResourceEntryName(btn.id).substring(12).lowercase()
                     )
                 }
             }
+
 
             if (correctlyFilled()) {
                 postToDatabase()

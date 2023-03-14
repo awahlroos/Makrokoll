@@ -1,18 +1,17 @@
 package se.umu.cs.oi19aws.makrokoll.controllers
 
-import android.content.Context
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import se.umu.cs.oi19aws.makrokoll.R
 import se.umu.cs.oi19aws.makrokoll.data.Recipe
 import se.umu.cs.oi19aws.makrokoll.data.RecipeViewModel
+import se.umu.cs.oi19aws.makrokoll.data.Saved
 import se.umu.cs.oi19aws.makrokoll.databinding.ActivityDetailedRecipeBinding
 import se.umu.cs.oi19aws.makrokoll.models.IngredientsRecyclerViewAdapter
 import java.io.File
@@ -27,11 +26,30 @@ class DetailedRecipeActivity : AppCompatActivity() {
         binding = ActivityDetailedRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val id = intent.getIntExtra("id", -1)
+        val recipeId = intent.getIntExtra("id", -1)
         viewModelRecipe = ViewModelProvider(this)[RecipeViewModel::class.java]
-        Log.d("TAG", "id: $id")
 
-        val recipe: LiveData<Recipe> = viewModelRecipe.getRecipe(id)
+        val saveButton = binding.saveButton
+
+        viewModelRecipe.recipeIsSaved(recipeId).observe(this) { isSaved ->
+            if(isSaved){
+                saveButton.isActivated = true
+            }
+        }
+
+        saveButton.setOnClickListener {
+            val savedRecipe = Saved(1,recipeId)
+            saveButton.isActivated = !saveButton.isActivated
+            if(saveButton.isActivated){
+                viewModelRecipe.addSavedRecipe(savedRecipe)
+                Toast.makeText(this, "Recept sparat", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModelRecipe.deleteSavedRecipe(savedRecipe.id)
+                Toast.makeText(this, "Recept borttaget från sparade", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        val recipe: LiveData<Recipe> = viewModelRecipe.getRecipe(recipeId)
 
         recipe.observe(this) { recipe ->
             supportActionBar?.title = recipe.name
@@ -41,7 +59,7 @@ class DetailedRecipeActivity : AppCompatActivity() {
             if (recipe.activeFilters.size == 1) {
                 binding.proteinIcon.setImageResource(
                     resources.getIdentifier(
-                        "ic_${recipe.activeFilters[0]}",
+                        "ic_${recipe.activeFilters.first()}",
                         "drawable",
                         "se.umu.cs.oi19aws.makrokoll"
                     )
@@ -55,7 +73,6 @@ class DetailedRecipeActivity : AppCompatActivity() {
                     )
                 )
             }
-            Log.d("TAG", "image. ${recipe.image}")
             binding.recipeImage.setImageBitmap(
                 BitmapFactory.decodeFile(
                     File(

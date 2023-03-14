@@ -4,6 +4,7 @@
     <string name="PFC_info">%1$dP | %2$dF | %3$dC</string>
     <string name="filter">Filtrera</string>
     <string name="discover_recipes">Alla recept</string>
+    <string name="saved_recipes">Sparade recept</string>
 
     <!-- actionbar-->
     <string name="search">Sök</string>

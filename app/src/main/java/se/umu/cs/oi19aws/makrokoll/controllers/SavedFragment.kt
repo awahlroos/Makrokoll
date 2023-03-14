@@ -1,60 +1,95 @@
 package se.umu.cs.oi19aws.makrokoll.controllers
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import se.umu.cs.oi19aws.makrokoll.R
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import se.umu.cs.oi19aws.makrokoll.data.RecipeViewModel
+import se.umu.cs.oi19aws.makrokoll.databinding.FragmentDiscoverBinding
+import se.umu.cs.oi19aws.makrokoll.databinding.FragmentSavedBinding
+import se.umu.cs.oi19aws.makrokoll.models.RecipeCardModel
+import se.umu.cs.oi19aws.makrokoll.models.RecipeCardRecyclerViewAdapter
+import se.umu.cs.oi19aws.makrokoll.models.SpacesItemDecorator
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [saved.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SavedFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class SavedFragment : Fragment(), RecyclerViewInterface {
+
+    private lateinit var viewModelRecipe:RecipeViewModel
+    private lateinit var binding: FragmentSavedBinding
+    private var recipeModel = ArrayList<RecipeCardModel>()
+    private lateinit var recyclerView:RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_saved, container, false)
+
+        viewModelRecipe = ViewModelProvider(this)[RecipeViewModel::class.java]
+        binding = FragmentSavedBinding.inflate(inflater, container, false)
+        setUpRecyclerView()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment saved.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SavedFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun setUpRecyclerView() {
+        recyclerView = binding.recyclerView
+        val adapter = this.activity?.let { RecipeCardRecyclerViewAdapter(it, recipeModel, this) }
+        recyclerView.adapter = adapter
+        //recyclerView.layoutManager = FlexboxLayoutManager(this.activity)
+        recyclerView.layoutManager = GridLayoutManager(this.activity, 2)
+        recyclerView.addItemDecoration(SpacesItemDecorator(16, 450))
+        getSavedRecipes()
     }
+
+    private fun getSavedRecipes() {
+        viewModelRecipe.getSavedRecipes().observe(viewLifecycleOwner) { recipes ->
+            for (recipe in recipes) {
+                val icon: String = if (recipe.activeFilters.size > 1) {
+                    "multiple"
+                } else {
+                    recipe.activeFilters[0]
+                }
+                updateRecipeModel(
+                    recipe.id,
+                    recipe.name,
+                    recipe.kcal,
+                    recipe.protein,
+                    recipe.fat,
+                    recipe.carbs,
+                    icon,
+                    recipe.image
+                )
+            }
+        }
+    }
+
+    private fun updateRecipeModel(
+        id: Int,
+        name: String,
+        kcal: Int,
+        protein: Int,
+        fat: Int,
+        carbs: Int,
+        icon: String,
+        image: String
+    ) {
+        recipeModel.add(RecipeCardModel(id, name, kcal, protein, fat, carbs, icon, image))
+        recyclerView.adapter?.notifyDataSetChanged()
+    }
+
+    override fun onItemClick(position: Int) {
+        val i = Intent(activity, DetailedRecipeActivity::class.java)
+        i.putExtra("id", recipeModel[position].getId())
+        startActivity(i)
+    }
+
 }
