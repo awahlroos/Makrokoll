@@ -2,6 +2,7 @@ package se.umu.cs.oi19aws.makrokoll.data
 
 import androidx.lifecycle.LiveData
 
+// Repository for managing database operations. Communicates with the DAO.
 class RecipeRepository(private val recipeDao: RecipeDAO) {
 
     val getAllRecipe: LiveData<List<Recipe>> = recipeDao.getAllRecipe()

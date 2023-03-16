@@ -7,12 +7,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+// View model for recipes. Communicates via the repository.
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
 
     val getAllRecipe: LiveData<List<Recipe>>
     private val repository: RecipeRepository
-    //private lateinit var getRecipe: LiveData<Recipe>
-    //private val getRecipe: LiveData<Recipe> = getRecipe(id)
+
 
     init {
         val recipeDao = RecipeDatabase.getDatabase(application).recipeDao()

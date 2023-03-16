@@ -10,10 +10,4 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/white</item>
     </style>
-    <style name="Theme.Makrokoll.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-    <style name="Theme.Makrokoll.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="Theme.Makrokoll.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

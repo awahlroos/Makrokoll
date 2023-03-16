@@ -20,31 +20,33 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
+// Class to handle activity for creating a new recipe.
+// The user can make a new recipe with a name, description, nutrient info etc.
 class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: ActivityAddRecipeBinding
     private lateinit var nrOfServingsSpinner: Spinner
     private lateinit var measurementSpinner: Spinner
     private lateinit var activeFiltersList: ArrayList<String>
-    private var filterList = ArrayList<Button>()
     private lateinit var recyclerView: RecyclerView
-    private var nrOfServings = 0
     private lateinit var measurementUnit: String
-    private var ingredientModel = ArrayList<IngredientsModel>()
     private lateinit var viewModelRecipe: RecipeViewModel
+
+    private var filterList = ArrayList<Button>()
+    private var nrOfServings = 0
+    private var ingredientModel = ArrayList<IngredientsModel>()
     private var activeFiltersListBoolean = BooleanArray(9)
 
     private lateinit var file: File
     private lateinit var viewModelImage: ImageViewModel
     private val imageName = generateImageName()
 
-    val launcher = registerForActivityResult(
-
-        //Vi använder det färdiga kontraktet för att ta bilder
+    private val launcher = registerForActivityResult(
+        //Use contract to take picture
         ActivityResultContracts.TakePicture()
     ) {
         if (it) {
-            viewModelImage.file = File(filesDir, imageName) //Uppdatera bilden
+            viewModelImage.file = File(filesDir, imageName)
         }
     }
 
@@ -57,9 +59,7 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         binding = ActivityAddRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         handleRestore(savedInstanceState)
-
         initNrOfServingsSpinner()
         initMeasurementSpinner()
         setAddIngredientListener()
@@ -68,9 +68,9 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         setUpImageHandler()
     }
 
-    private fun handleRestore(savedInstanceState: Bundle?){
+    private fun handleRestore(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
-            //Setup filters again
+            //Restore boolean values for the filters (if active or not)
             activeFiltersListBoolean = savedInstanceState.getBooleanArray(FILTER_KEY)!!
 
             //Setup recyclerview again
@@ -82,11 +82,12 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         }
     }
 
-    private fun setUpImageHandler(){
+    private fun setUpImageHandler() {
         viewModelImage.bitmap.observe(this) {
             binding.postedImageIV.setImageBitmap(it)
         }
 
+        //Set image in view model
         file = File(filesDir, imageName)
         if (file.exists() && viewModelImage.file == null) {
             viewModelImage.file = file
@@ -99,7 +100,7 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
     private fun initNrOfServingsSpinner() {
         nrOfServingsSpinner = binding.nrOfServingsSpinner
 
-        var adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
+        val adapter: ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(
             this, R.array.numbers, android.R.layout.simple_spinner_item
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -120,7 +121,7 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         measurementSpinner.onItemSelectedListener = this
     }
 
-
+    //Spinner item is selected
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         if (parent == binding.nrOfServingsSpinner) {
             nrOfServings = parent.getItemAtPosition(position).toString().toInt()
@@ -131,36 +132,45 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
+        return
     }
 
     private fun setAddIngredientListener() {
         val addIngredientButton = binding.addIngredientButton
 
         addIngredientButton.setOnClickListener {
-            if (binding.weightVolumeET.text.toString() != "") {
-                if (binding.ingredientNameET.text.toString() != "") {
-                    val weightVolume = binding.weightVolumeET.text.toString()
-                    val ingredientName = binding.ingredientNameET.text.toString().lowercase()
+            val weightVolume = binding.weightVolumeET.text.toString()
+            val ingredientName = binding.ingredientNameET.text.toString().lowercase()
 
-                    recyclerView = binding.recyclerView
-                    updateIngredientModel(weightVolume, measurementUnit, ingredientName)
-                    val adapter = IngredientsRecyclerViewAdapter(this, ingredientModel, true)
-                    recyclerView.adapter = adapter
-                    recyclerView.layoutManager = LinearLayoutManager(this)
-
-                    binding.weightVolumeET.text.clear()
-                    binding.ingredientNameET.text.clear()
-                    binding.weightVolumeET.requestFocus()
-                } else Toast.makeText(this, "Ange namn på ingrediens", Toast.LENGTH_LONG).show()
-            } else {
+            //Return if field is empty on submit
+            if (weightVolume.isBlank()) {
                 Toast.makeText(this, "Ange vikt/volym", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
             }
+
+            //Return if field is empty on submit
+            if (ingredientName.isBlank()) {
+                Toast.makeText(this, "Ange namn på ingrediens", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            addIngredient(weightVolume, ingredientName)
         }
     }
 
-    private fun initFilterList() {
+    //Add the ingredient to the ingredient model
+    private fun addIngredient(weightVolume: String, ingredientName: String) {
+        updateIngredientModel(weightVolume, measurementUnit, ingredientName)
+        val adapter = IngredientsRecyclerViewAdapter(this, ingredientModel, true)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
+        //Reset the field for next input
+        binding.weightVolumeET.text.clear()
+        binding.ingredientNameET.text.clear()
+        binding.weightVolumeET.requestFocus()
+    }
+
+    private fun initFilterList() {
         filterList.add(binding.filterButtonFish)
         filterList.add(binding.filterButtonPork)
         filterList.add(binding.filterButtonBird)
@@ -172,8 +182,10 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         filterList.add(binding.filterButtonOthers)
 
         for (btn in filterList) {
+            //Activated state of the buttons is restored
             btn.isActivated = activeFiltersListBoolean[filterList.indexOf(btn)]
             btn.setOnClickListener {
+                //Toggle between active / not active
                 activeFiltersListBoolean[filterList.indexOf(btn)] =
                     !activeFiltersListBoolean[filterList.indexOf(btn)]
                 btn.isActivated = !btn.isActivated
@@ -186,10 +198,11 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         activeFiltersList = ArrayList()
 
         publishButton.setOnClickListener {
+            //Fill the active filters list
             for (btn in filterList) {
                 if (btn.isActivated) {
-                    //Store only the filter phrase, ie. "Beef" or "Egg"
                     activeFiltersList.add(
+                        //Store only the filter phrase, ie. "beef" or "egg"
                         resources.getResourceEntryName(btn.id).substring(12).lowercase()
                     )
                 }
@@ -202,6 +215,7 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         }
     }
 
+    //Check all input and verify it is correct
     private fun correctlyFilled(): Boolean {
         if (binding.recipeNameET.text.toString().isEmpty()) {
             showError("\"Namn på recept\" saknas", binding.recipeNameET)
@@ -255,18 +269,15 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
+    //Post recipe to databse
     private fun postToDatabase() {
         val name = binding.recipeNameET.text.toString()
         val description = binding.descriptionET.text.toString()
-        //nrOfServings
-        //ingredientModel
         val kcal = binding.kcalET.text.toString().toInt()
         val protein = binding.proteinET.text.toString().toInt()
         val fat = binding.fatET.text.toString().toInt()
         val carbs = binding.carbsET.text.toString().toInt()
-        //activeFiltersList
         val stepByStep = binding.stepByStepET.text.toString()
-        //val image = viewModelImage.file.toString()
 
         val recipe = Recipe(
             0,
@@ -293,34 +304,23 @@ class AddRecipeActivity : AppCompatActivity(), AdapterView.OnItemSelectedListene
         ingredientModel.add(IngredientsModel(weightVolume, measurementUnit, ingredientName))
     }
 
-
     //Camera
     private fun takePicture() {
-        /* Bestäm vart filen ska sparas
-         * Observera att Kamera-appen måste kunna skriva till platsen
-         * där filen finns därav används en FileProvider
-         */
-        val uri: Uri
 
-        //Spara filen i vår local
-        // storage med en content-url. Det låter de oss spara filen var som helst utan att behöva
-        // bry os om att kameraappen har rättighet at skriva dit. Dessutom har vi
-        // om vi sparar filen på ett ställe vi har koll på kontroll över att ingen
-        // annan app sabbar något
-        uri = FileProvider.getUriForFile(applicationContext, "$packageName.fileprovider", file)
+        //Store image to local storage
+        val uri: Uri =
+            FileProvider.getUriForFile(applicationContext, "$packageName.fileprovider", file)
 
-        //Starta aktiviteten
         launcher.launch(uri)
     }
 
-    /*
-     * Se till så att vi uppdaterar om storleken på vyn skulle ändras (tex pga rotation).
-     */
+    //Update size if screen size changes due to change of orientation
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         viewModelImage.setSize(binding.postedImageIV.height, binding.postedImageIV.width)
     }
 
+    //Function to generate unique image names to be stored in the database
     private fun generateImageName(): String {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val randomString = UUID.randomUUID().toString()

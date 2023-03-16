@@ -12,13 +12,12 @@ import se.umu.cs.oi19aws.makrokoll.R
 import se.umu.cs.oi19aws.makrokoll.controllers.RecyclerViewInterface
 import java.io.File
 
+// Class to handle ingredient recycler view adapter
 class RecipeCardRecyclerViewAdapter(var context: Context,
                                     var recipesList:ArrayList<RecipeCardModel>,
                                     var recyclerViewInterface: RecyclerViewInterface
 ) :
     RecyclerView.Adapter<RecipeCardRecyclerViewAdapter.Companion.MyViewHolder>() {
-
-    //private lateinit var recyclerViewInterface:RecyclerViewInterface
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -27,16 +26,6 @@ class RecipeCardRecyclerViewAdapter(var context: Context,
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        //val card = holder.itemView
-        //    .findViewById<AppCompatImageButton>(R.id.top_container)
-        //card.setOnClickListener {
-            //TODO: Gå till receptsidan
-        //    Log.d("TAG", "OnClick working")
-            //notifyDataSetChanged()
-        //}
-
-
-
         holder.recipeName.text = recipesList[position].getName()
         holder.kcalText.text = context.getString(R.string.nr_kcal, recipesList[position].getKCAL())
         holder.pfcText.text = context.getString(R.string.PFC_info,
@@ -44,16 +33,13 @@ class RecipeCardRecyclerViewAdapter(var context: Context,
             recipesList[position].getFat(),
             recipesList[position].getCarbs())
 
-        //ingredientList[position].getIcon() == "beef", "egg" etc, same as protein filter option.
+        //Get icon name ending, like "beef" or "egg"
         val iconName = "ic_${recipesList[position].getIcon()}"
         holder.icon.setImageResource(context.resources.getIdentifier(iconName,"drawable","se.umu.cs.oi19aws.makrokoll"))
-        val imageName = "${recipesList[position].getImage()}"
+        val imageName = recipesList[position].getImage()
 
         holder.image.setImageBitmap(BitmapFactory.decodeFile(File(context.filesDir, imageName).absolutePath))
-        //holder.image.setImageResource(context.resources.getIdentifier(imageName, "drawable", "se.umu.cs.oi19aws.makrokoll"))
-        //Log.d("TAG", "recipeName: ${holder.recipe_name.text}")
         holder.setOnClickListener()
-
     }
 
     override fun getItemCount(): Int {

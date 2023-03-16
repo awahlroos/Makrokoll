@@ -8,7 +8,7 @@ import androidx.room.Query
 
 @Dao
 interface RecipeDAO {
-    //All recipes
+    // --------- All recipes ---------
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addRecipe(recipe: Recipe)
 
@@ -40,7 +40,7 @@ interface RecipeDAO {
                             filter8:String,
                             filter9:String): LiveData<List<Recipe>>
 
-    //Saved recipes
+    // --------- Saved recipes ---------
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addSavedRecipe(saved: Saved)
 

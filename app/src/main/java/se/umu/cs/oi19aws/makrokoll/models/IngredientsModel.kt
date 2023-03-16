@@ -3,6 +3,7 @@ package se.umu.cs.oi19aws.makrokoll.models
 import android.os.Parcel
 import android.os.Parcelable
 
+// Model class to store ingredients as its own class
 class IngredientsModel(
     private var weightVolume: String?,
     private var measurementUnit: String?,

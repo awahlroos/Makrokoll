@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "se.umu.cs.oi19aws.makrokoll"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"

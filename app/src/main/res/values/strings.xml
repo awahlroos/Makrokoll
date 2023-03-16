@@ -5,6 +5,8 @@
     <string name="filter">Filtrera</string>
     <string name="discover_recipes">Alla recept</string>
     <string name="saved_recipes">Sparade recept</string>
+    <string name="search_string_results">Resultat för sökning \"%1$s\"</string>
+    <string name="all_results">Alla recept</string>
 
     <!-- actionbar-->
     <string name="search">Sök</string>
@@ -77,14 +79,6 @@
     <string name="nr_of_servings">%1$d portioner</string>
     <string name="how_to_do">Gör så här</string>
     <string name="title_activity_detailed_recipe">DetailedRecipeActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
 
 </resources>

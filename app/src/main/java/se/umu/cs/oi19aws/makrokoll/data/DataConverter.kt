@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import se.umu.cs.oi19aws.makrokoll.models.IngredientsModel
 
-
+// Class to convert ArrayLists so it can be stored in the database
 class DataConverter {
 
     inline fun <reified T> Gson.fromJson(json: String) =

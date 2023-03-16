@@ -11,6 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -38,7 +39,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/img_currygryta"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,7 +66,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/nutrient_info_container"
-                        android:layout_width="100dp"
+                        android:layout_width="110dp"
                         android:layout_height="40dp"
                         android:alpha=".4"
                         android:background="@drawable/style_nutrient_info_background"

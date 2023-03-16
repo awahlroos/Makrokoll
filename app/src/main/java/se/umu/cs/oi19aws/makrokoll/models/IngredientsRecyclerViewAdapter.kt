@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import se.umu.cs.oi19aws.makrokoll.R
 
+// Class to handle ingredient recycler view adapter
 class IngredientsRecyclerViewAdapter(
     var context: Context,
     var ingredientList: ArrayList<IngredientsModel>,
@@ -31,7 +32,6 @@ class IngredientsRecyclerViewAdapter(
                 holder.itemView.findViewById<AppCompatImageButton>(R.id.removeIngredientButton)
             removeButton.setOnClickListener {
                 ingredientList.removeAt(position)
-                //This is used instead of "notifyItemRemoved(position)" to get the updated interval
                 notifyDataSetChanged()
             }
         }

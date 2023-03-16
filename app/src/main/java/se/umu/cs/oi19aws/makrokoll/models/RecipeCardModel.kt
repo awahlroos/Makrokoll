@@ -1,5 +1,6 @@
 package se.umu.cs.oi19aws.makrokoll.models
 
+// Model class for the recipe to be presented
 class RecipeCardModel(
     private var id: Int,
     private var name: String,
@@ -39,7 +40,6 @@ class RecipeCardModel(
     }
 
     fun getImage(): String {
-        //TODO: Hämta från databas
         return image
     }
 }
