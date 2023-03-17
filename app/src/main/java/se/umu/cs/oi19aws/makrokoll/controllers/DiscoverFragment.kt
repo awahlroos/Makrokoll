@@ -387,7 +387,9 @@ class DiscoverFragment : Fragment(), RecyclerViewInterface {
     private fun deactivateFilterButtons() {
         for (button in filterButtonList) {
             button.isActivated = false
-            filterStringList.remove(mapButtonToString[button]!!)
+            if(filterStringList.isNotEmpty()){
+                filterStringList.remove(mapButtonToString[button]!!)
+            }
         }
     }
 
