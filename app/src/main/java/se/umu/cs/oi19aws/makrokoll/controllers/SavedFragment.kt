@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import se.umu.cs.oi19aws.makrokoll.data.RecipeViewModel
 import se.umu.cs.oi19aws.makrokoll.databinding.FragmentSavedBinding
 import se.umu.cs.oi19aws.makrokoll.models.RecipeCardModel
-import se.umu.cs.oi19aws.makrokoll.models.RecipeCardRecyclerViewAdapter
 import se.umu.cs.oi19aws.makrokoll.models.SpacesItemDecorator
 
 // Fragment to provide the saved recipes page. Here the user can browse all the saved recipes.

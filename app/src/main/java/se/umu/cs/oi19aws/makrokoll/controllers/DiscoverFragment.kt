@@ -16,7 +16,6 @@ import se.umu.cs.oi19aws.makrokoll.R
 import se.umu.cs.oi19aws.makrokoll.data.RecipeViewModel
 import se.umu.cs.oi19aws.makrokoll.databinding.FragmentDiscoverBinding
 import se.umu.cs.oi19aws.makrokoll.models.RecipeCardModel
-import se.umu.cs.oi19aws.makrokoll.models.RecipeCardRecyclerViewAdapter
 import se.umu.cs.oi19aws.makrokoll.models.SpacesItemDecorator
 
 // Fragment class to show the home page, or "Discover" page. Displays all the recipes

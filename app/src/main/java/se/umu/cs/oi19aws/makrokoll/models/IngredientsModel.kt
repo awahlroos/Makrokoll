@@ -14,9 +14,7 @@ class IngredientsModel(
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
-    ) {
-
-    }
+    )
 
     fun getWeightVolume(): String? {
         return weightVolume

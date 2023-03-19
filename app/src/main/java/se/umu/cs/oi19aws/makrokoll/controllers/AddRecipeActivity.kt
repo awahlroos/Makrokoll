@@ -15,7 +15,6 @@ import se.umu.cs.oi19aws.makrokoll.data.Recipe
 import se.umu.cs.oi19aws.makrokoll.data.RecipeViewModel
 import se.umu.cs.oi19aws.makrokoll.databinding.ActivityAddRecipeBinding
 import se.umu.cs.oi19aws.makrokoll.models.IngredientsModel
-import se.umu.cs.oi19aws.makrokoll.models.IngredientsRecyclerViewAdapter
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*

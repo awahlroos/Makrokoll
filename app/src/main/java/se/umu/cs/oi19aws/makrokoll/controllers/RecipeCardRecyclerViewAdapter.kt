@@ -1,4 +1,4 @@
-package se.umu.cs.oi19aws.makrokoll.models
+package se.umu.cs.oi19aws.makrokoll.controllers
 
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -9,13 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import se.umu.cs.oi19aws.makrokoll.R
-import se.umu.cs.oi19aws.makrokoll.controllers.RecyclerViewInterface
+import se.umu.cs.oi19aws.makrokoll.models.RecipeCardModel
 import java.io.File
 
 // Class to handle ingredient recycler view adapter
 class RecipeCardRecyclerViewAdapter(var context: Context,
-                                    var recipesList:ArrayList<RecipeCardModel>,
-                                    var recyclerViewInterface: RecyclerViewInterface
+                                    private var recipesList:ArrayList<RecipeCardModel>,
+                                    private var recyclerViewInterface: RecyclerViewInterface
 ) :
     RecyclerView.Adapter<RecipeCardRecyclerViewAdapter.Companion.MyViewHolder>() {
 

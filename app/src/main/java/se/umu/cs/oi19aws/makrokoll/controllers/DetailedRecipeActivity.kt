@@ -13,7 +13,6 @@ import se.umu.cs.oi19aws.makrokoll.data.Recipe
 import se.umu.cs.oi19aws.makrokoll.data.RecipeViewModel
 import se.umu.cs.oi19aws.makrokoll.data.Saved
 import se.umu.cs.oi19aws.makrokoll.databinding.ActivityDetailedRecipeBinding
-import se.umu.cs.oi19aws.makrokoll.models.IngredientsRecyclerViewAdapter
 import java.io.File
 
 // Class to show a detailed view of a recipe. Presents all the information about a specific recipe

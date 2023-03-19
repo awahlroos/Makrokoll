@@ -1,4 +1,4 @@
-package se.umu.cs.oi19aws.makrokoll.models
+package se.umu.cs.oi19aws.makrokoll.controllers
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,11 +8,12 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import se.umu.cs.oi19aws.makrokoll.R
+import se.umu.cs.oi19aws.makrokoll.models.IngredientsModel
 
 // Class to handle ingredient recycler view adapter
 class IngredientsRecyclerViewAdapter(
     var context: Context,
-    var ingredientList: ArrayList<IngredientsModel>,
+    private var ingredientList: ArrayList<IngredientsModel>,
     private val deletable: Boolean
 ) : RecyclerView.Adapter<IngredientsRecyclerViewAdapter.Companion.MyViewHolder>() {
 
